@@ -44,6 +44,7 @@
 .page-container {
   background-color: #006cbe;
   padding: 2% 5%;
+  width: 100%;
 }
 
 .input-style {
@@ -71,6 +72,7 @@
   color: #edf2f9;
   font-size: 20px;
   font-weight: 800;
+  cursor: ponter;
 }
 
 .cardContainer {
@@ -105,6 +107,33 @@
   justify-content: center;
   height: -webkit-fill-available;
   margin-top: 13px;
+}
+
+.loadmore-btn{
+  border: 0px;
+  padding: 20px 100px;
+  outline: 0px;
+  border-radius: 12px;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  background: #ffb05a;
+  cursor: pointer;
+}
+
+.url-loader{
+  padding: 0px 20px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.url-loader .label{
+  color: #a3bee0;
+} 
+
+.url-loader .text {
+  color: #deeaf6;
+  margin-left: 5px;
 }
 
 .container {

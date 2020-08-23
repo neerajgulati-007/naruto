@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-const Search = ({ onSubmit, queryParams }) => {
+const Search = ({ queryParams, navigateToParams }) => {
 
   const [searchQuery, setSearchQuery] = useState(queryParams.query);
 
   const onFormSubmit = (e) => {
     const newQueryParams = { ...queryParams };
     newQueryParams.query = searchQuery;
-    onSubmit(newQueryParams);
+    newQueryParams.page = 1;
+    navigateToParams(newQueryParams);
     e.preventDefault();
   }
   return (

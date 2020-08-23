@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchAnimes } from '../ducks/animes';
+
+import { fetchMoreAnimes, searchAnimes } from '../ducks/animes';
 
 import AnimeCard from '../components/AnimeCard';
 import Search from '../components/Search';
+import Pagination from '../components/Pagination';
+import Loader from '../components/Loader';
 
 const getQueryParams = (search) => {
   const queryParamsIt = new URLSearchParams(search);
@@ -33,10 +36,10 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchAnimes({ ...this.state.queryParams });
+    this.props.searchAnimes({ ...this.state.queryParams });
   }
 
-  onSubmit = (queryParams) => {
+  navigateToParams = (queryParams) => {
     this.setState({ queryParams });
     const { location: { pathname } } = this.props;
     const search = getQueryString(queryParams);
@@ -45,29 +48,54 @@ class Home extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.location.search !== prevProps.location.search) {
-      this.props.fetchAnimes({ ...this.state.queryParams });
+      
+      const prevParams = getQueryParams(prevProps.location.search);
+      const params = getQueryParams(this.props.location.search);
+      
+      if(prevParams.query !== params.query) {
+        this.props.searchAnimes({...this.state.queryParams});
+      } 
+
+      else if(prevParams.page!== params.page) {
+        this.props.fetchMoreAnimes({ ...this.state.queryParams });
+      }
+      
+      
     }
   }
 
   render() {
     console.log("props are===>", this.props);
-    const { animes } = this.props;
+    const { animes, lastPage, loading, url } = this.props;
     return (
       <div className="page-container">
         <div className="mb2">
           <Search
             {...this.state}
-            onSubmit={this.onSubmit}
+            navigateToParams={this.navigateToParams}
           />
         </div>
-        <div className="container">
+        {
+          loading && 
+          <div className="mb2">
+            <Loader url={url}/>
+          </div>
+        }
+        <div className="container mb2">
           <div className="row">
             {animes.map((item,key) =>
-              (<div className="col-md-4" key={key}>
+              (<div className="col-md-4 mb2" key={key}>
                 <AnimeCard {...item} />
               </div>)
             )}
           </div>
+        </div>
+        <div>
+            <Pagination
+              {...this.state}
+              lastPage={lastPage}
+              navigateToParams={this.navigateToParams}
+            />
         </div>
       </div>
     );
@@ -75,6 +103,9 @@ class Home extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-  animes: state.animes
+  animes: state.animes.animes,
+  lastPage: state.animes.lastPage,
+  loading: state.animes.loading,
+  url: state.animes.url
 });
-export default connect(mapStateToProps, { fetchAnimes })(Home);
+export default connect(mapStateToProps, { fetchMoreAnimes, searchAnimes })(Home);
