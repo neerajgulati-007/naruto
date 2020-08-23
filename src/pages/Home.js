@@ -25,27 +25,27 @@ class Home extends React.Component {
     const queryParams = getQueryParams(this.props.location.search);
     this.state = {
       queryParams: {
-        query: queryParams.search || 'naruto',
+        query: queryParams.query || 'naruto',
         page: queryParams.page || 1,
-        limit:  queryParams.limit || 16  
+        limit: queryParams.limit || 16
       }
     }
   }
 
-  componentDidMount() {   
-    this.props.fetchAnimes({...this.state.queryParams});
+  componentDidMount() {
+    this.props.fetchAnimes({ ...this.state.queryParams });
   }
 
   onSubmit = (queryParams) => {
-   this.setState({queryParams});
-   const { location: {pathname} } = this.props;
-   const search = getQueryString(queryParams);
-   this.props.history.push(`${pathname}?${search}`);
+    this.setState({ queryParams });
+    const { location: { pathname } } = this.props;
+    const search = getQueryString(queryParams);
+    this.props.history.push(`${pathname}?${search}`);
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.location.search !== prevProps.location.search) {
-      this.props.fetchAnimes({...this.state.queryParams});
+    if (this.props.location.search !== prevProps.location.search) {
+      this.props.fetchAnimes({ ...this.state.queryParams });
     }
   }
 
@@ -53,15 +53,19 @@ class Home extends React.Component {
     console.log("props are===>", this.props);
     const { animes } = this.props;
     return (
-      <div>
-        <Search 
-          {...this.state}
-          onSubmit={this.onSubmit}
-        />
+      <div className="page-container">
+        <div className="mb2">
+          <Search
+            {...this.state}
+            onSubmit={this.onSubmit}
+          />
+        </div>
         <div className="container">
           <div className="row">
-            {animes.map((item) =>
-              (<div className="col-md-4"><AnimeCard {...item} /></div>)
+            {animes.map((item,key) =>
+              (<div className="col-md-4" key={key}>
+                <AnimeCard {...item} />
+              </div>)
             )}
           </div>
         </div>

@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #006cbe;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,6 +35,76 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.mb2{
+  margin-bottom: 1rem;
+ }
+
+.page-container {
+  background-color: #006cbe;
+  padding: 2% 5%;
+}
+
+.input-style {
+  width: 80%;
+  background: #2368bb;
+  border-radius: 8px;
+  border: 2px solid #628bc9;
+  color: #edf2f9;
+  padding: 25px;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.input-style:focus {
+  outline: none
+}
+
+.search-btn {
+  height: 75px;
+  margin-left: 5px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: #2368bb;
+  border: 2px solid #628bc9;
+  color: #edf2f9;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.cardContainer {
+  background: #fff;
+  width: 200px;
+  height: 100%;
+  border-radius: 7px;
+  color: #494949;
+  font-size: 20px;
+  font-weight: 800;
+  margin: auto;
+
+}
+
+.img-container{
+  margin: auto;
+  width: 100%;
+  height: 300px;
+  border-radius: inherit;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.title-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: -webkit-fill-available;
+  margin-top: 13px;
 }
 
 .container {
