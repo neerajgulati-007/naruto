@@ -70,7 +70,6 @@ const initialState = {
 const animeReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_ANIMES_START:
-      debugger;
       const { payload: { loading, params: { query, limit, page } } } = action;
       return {
         ...state,
